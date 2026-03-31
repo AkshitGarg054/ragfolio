@@ -151,20 +151,22 @@ function Refresh-EnvironmentPath {
 function Install-Curl {
     Write-Step 1 "Installing Curl"
 
-    # Detect — skip if already present
+    # Use curl.exe explicitly; 'curl' is a PowerShell alias for Invoke-WebRequest
     try {
-        $curlVersion = & curl --version 2>&1
+        $curlVersion = & curl.exe --version 2>&1
         if ($curlVersion -match 'curl') {
             Write-Skip "Curl" "already installed"
             return
         }
     } catch {
-        # curl not found — proceed with install
+        # curl.exe not found — proceed with install
     }
 
-    # Download and install
-    $curlDir = "$env:ProgramFiles\curl"
+    # User-writable install location (no admin needed)
+    $curlDir = "$env:LOCALAPPDATA\curl"
     $curlExe = "$curlDir\curl.exe"
+    $zipFile    = "$env:TEMP\curl-latest.zip"
+    $extractDir = "$env:TEMP\curl-extract"
 
     try {
         $ErrorActionPreference = 'Stop'
@@ -175,17 +177,14 @@ function Install-Curl {
 
         Write-Host "Downloading curl for Windows..."
         $url = "https://curl.se/windows/dl-latest/curl-latest-win64-mingw.zip"
-        $zipFile = "$env:TEMP\curl-latest.zip"
-        
+
         Invoke-WebRequest -Uri $url -OutFile $zipFile -UseBasicParsing
 
         Write-Host "Extracting curl..."
-        $extractDir = "$env:TEMP\curl-extract"
         if (Test-Path $extractDir) { Remove-Item $extractDir -Recurse -Force }
-        
+
         Expand-Archive -Path $zipFile -DestinationPath $extractDir -Force
 
-        # Find curl.exe in the extracted directory and copy it
         $foundCurl = Get-ChildItem -Path $extractDir -Recurse -Filter "curl.exe" | Select-Object -First 1
         if ($foundCurl) {
             Copy-Item -Path $foundCurl.FullName -Destination $curlExe -Force
@@ -197,14 +196,12 @@ function Install-Curl {
         Write-Warn "Curl installation failed: $_"
         return
     } finally {
-        if (Test-Path $zipFile) { Remove-Item $zipFile -Force -ErrorAction SilentlyContinue }
-        if (Test-Path $extractDir) { Remove-Item $extractDir -Recurse -Force -ErrorAction SilentlyContinue }
+        if ($zipFile    -and (Test-Path $zipFile))    { Remove-Item $zipFile -Force -ErrorAction SilentlyContinue }
+        if ($extractDir -and (Test-Path $extractDir)) { Remove-Item $extractDir -Recurse -Force -ErrorAction SilentlyContinue }
     }
 
-    # Add curl to PATH for this session and persistently
     Add-ToPath $curlDir
-    
-    # Refresh environment to pick up changes
+
     Refresh-EnvironmentPath
     Start-Sleep -Milliseconds 500
 }

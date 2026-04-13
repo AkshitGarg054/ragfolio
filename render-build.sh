@@ -2,6 +2,9 @@
 # exit on error
 set -o errexit
 
+echo ">>> Installing uv..."
+pip install uv
+
 # 1. Build Frontend
 echo ">>> Building Frontend..."
 cd frontend

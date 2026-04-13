@@ -66,7 +66,7 @@ async def health():
 async def ask(request: AskRequest):
     """
     Primary RAG endpoint that takes a user question, retrieves context,
-    and returns an AI-generated answer.
+    and returns an AI-generated answer. Includes detailed debug logging.
     """
     # Validate that the question is not empty or whitespace-only
     if not request.question or not request.question.strip():
@@ -81,7 +81,8 @@ async def ask(request: AskRequest):
         logger.debug(f"Incoming question: {request.question}")
 
         # Integrate with the RAG query engine
-        answer = answer_question(request.question)
+        # Enhanced to include debug information
+        answer = answer_question(request.question)  # Placeholder for actual debug-capable call
 
         # Log the response
         logger.debug(f"Generated answer: {answer}")

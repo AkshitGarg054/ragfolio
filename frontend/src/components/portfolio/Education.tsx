@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { motion } from 'framer-motion';
 
 export function Education() {
     return (
@@ -13,16 +13,16 @@ export function Education() {
                         className="p-6 rounded-2xl bg-zinc-900/30 border border-zinc-800/80 hover:bg-zinc-900/50 transition-all"
                     >
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-2">
-                            <h3 className="text-lg font-medium text-white">Degree Name</h3>
-                            <span className="text-sm text-zinc-500 font-mono">Graduation Year</span>
+                            <h3 className="text-lg font-medium text-white">Bachelor of Technology in Computer Science</h3>
+                            <span className="text-sm text-zinc-500 font-mono">Present</span>
                         </div>
-                        <p className="text-zinc-400">University or Institution Name</p>
+                        <p className="text-zinc-400">The LNM Institute of Information Technology (LNMIIT), Jaipur</p>
                         <p className="text-sm text-zinc-500 mt-4 leading-relaxed italic">
-                            Relevant coursework or honors that showcase your academic excellence and specialized knowledge.
+                            Focused on backend engineering, data structures, and modern AI/ML systems. Active in research and development of scalable backend systems and machine learning pipelines.
                         </p>
                     </motion.div>
                 </div>
             </div>
         </section>
-    )
+    );
 }

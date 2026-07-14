@@ -23,10 +23,13 @@ CHROMA_DB_DIR = os.path.join(
     "chroma_db",
 )
 COLLECTION_NAME = "resume_chunks"
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.1-flash-lite")
 GEMINI_API_URL = (
     "https://generativelanguage.googleapis.com/v1beta/models/"
-    "gemini-2.5-flash-lite:generateContent"
+    f"{GEMINI_MODEL}:generateContent"
 )
+
+
 
 
 _embedding_model: TextEmbedding | None = None

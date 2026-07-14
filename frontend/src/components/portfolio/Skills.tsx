@@ -1,12 +1,9 @@
 import { motion } from 'framer-motion';
+import { profileData } from '../../data/profileData';
 
 export function Skills() {
-    const categories = [
-        { name: 'Languages', skills: ['Python', 'JavaScript', 'TypeScript'] },
-        { name: 'Frontend', skills: ['React.js', 'Next.js', 'Tailwind CSS'] },
-        { name: 'Backend', skills: ['Node.js', 'Express.js', 'FastAPI', 'MongoDB', 'PostgreSQL'] },
-        { name: 'Tools', skills: ['Git', 'Docker', 'HuggingFace', 'PyTorch'] },
-    ]
+    const categories = profileData.skills;
+
 
     return (
         <section className="py-12 px-4 border-t border-zinc-800/50">

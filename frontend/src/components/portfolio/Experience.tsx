@@ -1,20 +1,9 @@
 import { motion } from 'framer-motion';
+import { profileData } from '../../data/profileData';
 
 export function Experience() {
-    const technicalExperiences = [
-        {
-            title: 'Researcher - Fine-Tuning Small Language Models',
-            organization: 'LNMIIT, Jaipur',
-            duration: 'Aug 2025 - Present',
-            description: 'Engaged in research focused on optimizing small language models (SLMs) for performance comparable to large language models (LLMs). Designed custom datasets, implemented fine-tuning pipelines, and performed comparative evaluations across models like Phi-4, Qwen3, Gemini, and Mistral-7B.',
-        },
-        {
-            title: 'Open Source Contributor',
-            organization: 'GSSoC\'25 & Hacktoberfest\'25',
-            duration: '2025',
-            description: 'Selected Contributor at GSSoC\'25, collaborating with maintainers to submit meaningful PRs and earning a verified contributor certificate. Additionally recognized as a Hacktoberfest\'25 Super-Contributor for delivering impactful pull requests and earning the Super-Contribution badge.',
-        },
-    ];
+    const technicalExperiences = profileData.experiences;
+
 
     return (
         <section id="experience" className="py-12 px-4 border-t border-zinc-800/50">

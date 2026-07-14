@@ -1,23 +1,9 @@
 import { motion } from 'framer-motion';
+import { profileData } from '../../data/profileData';
 
 export function Projects() {
-  const projects = [
-    {
-      title: 'Customer Churn Prediction',
-      description: 'Developed an ML system to predict customer churn using structured data. Built end-to-end ML pipelines and achieved 87–92% accuracy across models.',
-      technologies: 'Python, XGBoost, Random Forest, Artificial Neural Networks',
-    },
-    {
-      title: 'Project Management Portal',
-      description: 'Designed a full-stack web application to manage projects with role-based access. Implemented authentication using JWT and created protected routes.',
-      technologies: 'React.js, Node.js, Express.js, MongoDB',
-    },
-    {
-      title: 'Airbnb Backend Clone',
-      description: 'Built a backend system replicating Airbnb functionality with REST APIs for listings, users, and bookings. Integrated MapTiler and Cloudinary.',
-      technologies: 'Node.js, Express.js, MongoDB, Render',
-    },
-  ];
+  const projects = profileData.projects;
+
 
   return (
     <section id="projects" className="py-12 px-4 border-t border-zinc-800/50">

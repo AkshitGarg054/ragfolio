@@ -6,7 +6,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 type Message = { role: 'user' | 'assistant'; content: string };
 
 export function Chatbot() {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>(() => {
+    const saved = localStorage.getItem('chat_messages');
+    return saved ? JSON.parse(saved) : [];
+  });
   const [loading, setLoading] = useState(false);
   const [backendStatus, setBackendStatus] = useState<'Online' | 'Offline'>('Offline');
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -23,6 +26,15 @@ export function Chatbot() {
   useEffect(() => {
     scrollToBottom();
   }, [messages, loading]);
+
+  useEffect(() => {
+    localStorage.setItem('chat_messages', JSON.stringify(messages));
+  }, [messages]);
+
+  const handleClearChat = () => {
+    setMessages([]);
+    localStorage.removeItem('chat_messages');
+  };
 
   const checkBackendHealth = async () => {
     const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || '/api';
@@ -93,7 +105,17 @@ export function Chatbot() {
 
       <div className="max-w-4xl mx-auto">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">Chatbot</h2>
+          <div className="flex items-center gap-4">
+            <h2 className="text-xl font-semibold">Chatbot</h2>
+            {messages.length > 0 && (
+              <button
+                onClick={handleClearChat}
+                className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors border border-zinc-800 hover:border-zinc-700 rounded-lg px-2 py-1 bg-zinc-900/30"
+              >
+                Clear History
+              </button>
+            )}
+          </div>
           <span className={`text-sm font-medium ${backendStatus === 'Online' ? 'text-green-500' : 'text-red-500'}`}>
             Backend: {backendStatus}
           </span>

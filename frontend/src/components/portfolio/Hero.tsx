@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { profileData } from '../../data/profileData';
 
 export function Hero() {
   return (
@@ -10,13 +11,13 @@ export function Hero() {
         className="max-w-4xl mx-auto text-center"
       >
         <h1 className="text-5xl sm:text-7xl font-bold text-white mb-6 tracking-tight">
-          Hi, I'm <span className="text-blue-500">Akshit Garg</span>
+          Hi, I'm <span className="text-blue-500">{profileData.name}</span>
         </h1>
         <p className="text-xl text-zinc-400 max-w-2xl mx-auto leading-relaxed">
-          Computer Science undergraduate specializing in backend engineering, data structures, and modern AI/ML systems.
-          Currently focused on building scalable backend systems and experimenting with fine-tuning small language models.
+          {profileData.tagline}
         </p>
       </motion.div>
     </section>
   );
 }
+
